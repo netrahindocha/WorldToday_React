@@ -28,12 +28,16 @@ export class News extends Component {
         }
     }
 
+    async UpdateNews(pageNo){
+
+    }
+
     async componentDidMount() {
         let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=48753e7eee184f03b80ebfddb963ecf2&page=1&pageSize=${this.props.pageSize}`;
         this.setState({loading: true})
         let data = await fetch(url);
         let parsedData = await data.json();
-        console.log(parsedData);
+        // console.log(parsedData);
         this.setState({ articles: parsedData.articles, totalResults: parsedData.totalResults, loading: false })
     }
 
@@ -67,13 +71,13 @@ export class News extends Component {
     render() {
         return (
             <div className='container my-3'>
-                <h1 className='text-center' style={{margin: '35px 0px'}}>{this.props.category} - Top Headlines</h1>
+                <h1 className='text-center' style={{margin: '35px 0px'}}>{this.props.category.toUpperCase()} - Top Headlines</h1>
                 {this.state.loading && <Spinner/>}
                 <div className="row my-6">
                     {!this.state.loading && this.state.articles.map((elem) => {
                         return <div className="col-md-4" key={elem.url}>
                             {/* <NewsItem title={elem.title ? elem.title.slice(0, 85) : ""} description={elem.description ? elem.description.slice(0, 138) : ""} imageUrl={elem.urlToImage} newsUrl={elem.url} /> */}
-                            <NewsItem title={elem.title} description={elem.description} imageUrl={elem.urlToImage} newsUrl={elem.url} />
+                            <NewsItem title={elem.title} description={elem.description} imageUrl={elem.urlToImage} newsUrl={elem.url} author={elem.author} date={elem.publishedAt} source={elem.source.name} color={this.props.color}/>
                         </div>
                     })}
                 </div>

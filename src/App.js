@@ -29,3 +29,7 @@ export default class App extends Component {
     )
   }
 }
+// rgb(114 174 129)
+// rgb(235, 175, 64)
+// rgb(242, 133, 116)
+// rgb(174, 187, 224)
